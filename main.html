@@ -1,0 +1,2768 @@
+<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mind Heart Body</title>
+
+  <link rel="stylesheet" href="css/jquery.mobile-1.3.1.css" />
+  <link rel="stylesheet"  href="css/jquery.mobile.structure-1.3.1.css" />
+  <link rel="stylesheet" href="css/jquery.mobile.theme-1.3.1.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+  <link href="css/jquery-ui-1.8.13.custom.css" rel="stylesheet" /> 
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+
+   	<script src="js/jquery-ui.min.js"></script>    
+	<script type="text/javascript" src="js/jquery.mobile-1.3.1.js"></script>
+ 	<script src="js/jquery.ui.touch-punch.min.js"></script> <!--  For Sorting   Js -->
+    <script type="text/javascript" src="js/cordova-2.4.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/calendar.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/custom.js"></script> 
+
+ 
+    <script type="text/javascript" src="js/Html5Video.js"></script>
+       <script type="text/javascript" src="js/cachecleaner.js"></script>
+              <script type="text/javascript" src="js/LocalNotification.js"></script>
+               
+       
+	
+	<script type="text/javascript">
+	var notification = cordova.require("cordova/plugin/localNotification")
+	document.addEventListener("deviceready", appReady, false);
+ document.addEventListener("pause", onPause, false);
+
+function onPause() {
+console.log("Start Function");
+		    stopallvideo();
+            $.mobile.changePage("#workout_routine", {
+                                transition: "slide",
+                                reverse: true,
+                                changeHash: false
+                                });
+								         	console.log("End Function");
+}
+ 
+   function gotobackground()
+        {
+         	
+        }
+function appReady() {
+	document.addEventListener("resume", gotobackground, false);
+   notification.add({
+      id: 1,
+      date: new Date(),
+      message: "Phonegap - Local Notification",
+      subtitle: "Subtitle is here",
+      ticker: "This is a sample ticker text",
+      repeatDaily: false
+  });
+    console.log("125:Device ready");
+}
+</script>
+	
+	<script type="text/javascript" charset="utf-8">
+	// Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+		document.addEventListener("backbutton", onBackKeyDown, false);
+        window.plugins.html5Video.initialize({
+     		Hip_Bridge_video: "hip_bridge.mp4",
+			Childs_Pose_video: "childs_pose.mp4",
+			Sit_Ups_video: "sit_ups.mp4",
+			Side_Bends_video: "side_bends.mp4",
+			Reverse_Marches_video: "reverse_marches.mp4",
+			T_Kicks_video: "t_kicks.mp4",
+			Modified_Plank_video: "modified_plank.mp4",
+			Cobra_video: "cobra.mp4",
+			Single_Leg_Balance_video: "single_leg_balance.mp4",
+			Angel_Wipers_video: "angel_wipers.mp4",
+			Opposite_Arm_and_Leg_Raise_video: "opposite_arm_and_leg_rise.mp4",
+			Flutter_Kicks_video: "flutter_kicks.mp4",
+			Two_Leg_Ab_Isolation_video: "two_leg_ab_isolation.mp4",
+			Side_Plank_with_Straight_Leg_Left_Side_video: "side_plank_with_straight_leg_left_side.mp4",
+			Side_Plank_with_Straight_Leg_Right_Side_video: "side_plank_with_straight_leg_right_side.mp4",
+			Standing_Knee_Raises_video: "standing_knee_raises.mp4",
+			Standing_Core_Rotation_video: "standing_core_rotation.mp4",
+			Prone_Plank_video: "prone_plank.mp4",
+			Dumbbell_Side_Bends_video: "dumbbell_side_bends.mp4",
+			Single_Leg_Side_Balance_Reach_video: "single_leg_side_balance_reach.mp4",
+			Spiderman_Planks_video: "spiderman_planks.mp4",
+			Reverse_Crunches_video: "reverse_crunches.mp4",
+			Cross_Leg_Sit_Ups_video: "cross_leg_situps.mp4",
+			Leg_Climbers_video: "leg_climbers.mp4",
+			Bicycle_Crunches_video: "bicycle_crunches.mp4",
+			Side_Scissor_Kicks_video: "side_scissor_kicks.mp4",
+			High_Low_Plank_video: "high_low_plank.mp4",
+			Bow_Extension_video: "bow_extension.mp4",
+			Reverse_Plank_video: "reverse_plank.mp4",
+			Single_Leg_Internal_External_Rotation_video: "single_leg_internal_external_rotation.mp4"
+     		});  
+    }
+function onBackKeyDown() 
+{
+	
+	if($.mobile.activePage.is('#workout_routine')){
+	  		device.exitApp();
+    }
+    else
+	{
+        navigator.app.backHistory()
+    }	 
+}
+
+function deleteEntireCache() 
+{
+		var cachecleaner = cordova.require("cordova/plugin/cachecleaner");
+		cachecleaner.del(
+		function (e) {
+		 console.log("PhoneGap Plugin: CacheCleaner: callback success");
+		},
+		function (e) {
+		console.log(e+"PhoneGap Plugin: CacheCleaner: callback error");
+		}
+		);
+}
+
+function setsound()   /*Set Video sound on off*/
+{
+   var value=$('#sound').val();
+   if(value=="no")
+	{
+		$("video").prop('muted', true); //mute
+		
+	}
+	else
+	{
+		$("video").prop('muted', false); //unmute
+	}
+}
+
+function changeButtonName(id)/* when select routine the it will change a tag text */
+{
+
+				if(id=="radio10")
+				{
+					 $('#Workout .ui-btn-text').text('Start Custom Workout');
+					 $('#Exercise .ui-btn-text').text('Create Routine');
+					 $('#Exercise').show();
+				}
+				else if(id=="radio9")
+				{
+					$('#Workout .ui-btn-text').text('Start Random Workout');
+					$('#Exercise').hide();
+					
+				}
+				else if(id=="radio5" || id=="radio7" ||id=="radio8")
+				{
+					 $('#Workout .ui-btn-text').text('Start Complete Workout');
+					 $('#Exercise .ui-btn-text').text('Start from Exercise');
+					$('#Exercise').show();
+				}
+}
+function onoffinstruction()
+{
+	var value=$('#instructions').val();
+	if(value=="yes")
+	{
+	   $('.equipdetail').css("display","block");
+	   $('.excersicedescription').css("display","block"); 
+	}
+	else
+	{
+		$('.equipdetail').css("display","none");
+		$('.excersicedescription').css("display","none");
+	}
+}
+function showhide()
+{
+	var value=$('#reminders').val();
+	if(value=="yes")
+	{
+		$('.remindersetting').css("display","block");
+	}
+	else
+	{
+		// clear all notification
+		$('.remindersetting').css("display","none");
+		  notification.cancelAll();
+		  alert("All reminder reset successfully...");
+	}
+}
+  
+  var notification = cordova.require("cordova/plugin/localNotification");
+
+function firenotification()
+{	
+	
+	 var id = 0;
+	  var testDate= new Date();
+
+		var arrayTime = $('#time').val().split(":");
+		  testDate.setHours(arrayTime[0],arrayTime[1]);
+        
+	//	alert(testDate);
+		
+		  var week="";
+		  var time=arrayTime;
+		  var repeat=$('#repeat').val();	
+		  
+		  if(repeat=="true")
+		  {
+			  repeat=true;
+		  	}
+		  else
+		  {
+			  repeat=false;
+			} 
+		  
+					  
+	/* validation start */
+	var count=0;
+	if($('#time').val()=="")
+	{
+		alert("Please Click on input box to select time..");
+		return;
+	}
+	var chklength = $('input:checkbox.weekday:checked').map(function() {
+					count=1;
+	});
+	if(count==0)
+	{
+		alert("Please select weekdays for reminder...");
+		return;
+	}
+		 var checkValues = $('input:checkbox.weekday:checked').map(function() {
+						 week+=$(this).attr('id')+":";
+						});
+
+			if(week!="")
+			{
+				week = week.substring(0,(week.length-1));
+			}
+					//	alert(week);
+	/* validation  end */
+	
+              id++;
+            notification.add({
+                id : id,
+                date :testDate,
+                message : "Mind Heart Body",
+                subtitle: "This is Excersice Time....",
+                ticker : "This is a sample ticker text",
+                repeatDaily : repeat,
+			//	repeatDaily : false,
+				week:week,
+				time:time
+            });
+            
+		alert('Reminder Set..');
+		$.mobile.changePage("#workout_routine", {
+						transition: "slide",
+						reverse: true,
+						changeHash: false
+		});
+   
+ }
+        
+</script> 
+</head> 
+<body> 
+
+<!--- Workout Routine PAge Start -->
+<div data-role="page" id="workout_routine" class="workout_routine">
+  <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#disclaimer" class="help"></a>
+                </div>
+                <div class="heading-bar"><b>Mind Heart Body</b></div>
+                <div>
+                <a href="#setting" class="option"></a>
+                </div>
+   			</div>  <!-- /header---->
+    <div data-role="content">
+      	<div class="workout-start">
+        <div class="title">Select Workout Length</div>
+        <div class="workoutlength">
+        	    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <input id="radio2" name="workout_length" value="5 min" type="radio" checked="checked" >
+                <label for="radio2">
+                    5 min
+                </label>
+                <input id="radio3" name="workout_length" value="7.5 min" type="radio">
+                <label for="radio3">
+                    7.5 min
+                </label>
+                <input id="radio4" name="workout_length" value="10 min" type="radio">
+                <label for="radio4">
+                    10 min
+                </label>
+            </fieldset>
+        </div>
+       <div class="title">Select Workout Routine</div>
+        <div class="workoutroutine">
+         
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" >
+                <input id="radio5" name="routine" value="Hip_Bridge" type="radio" checked="checked" onchange="changeButtonName(this.id);" >
+                <label for="radio5">
+                  1
+                </label>
+				<input id="radio7" name="routine" value="Opposite_Arm_and_Leg_Raise" type="radio" onchange="changeButtonName(this.id);"  >
+                <label for="radio7">
+                   2
+                </label>
+                <input id="radio8" name="routine" value="Spiderman_Planks" type="radio" onchange="changeButtonName(this.id);" >
+                <label for="radio8" >
+                 3
+                </label>
+                <input id="radio9" name="routine" value="#" type="radio" onchange="changeButtonName(this.id);">
+                <label for="radio9">
+                  <img src="images/reload.png" />
+                </label>
+                <input id="radio10" name="routine" value="#" type="radio" onchange="changeButtonName(this.id);" >
+                <label for="radio10">
+					<img src="images/setting.png" />
+                </label> 
+            </fieldset>
+        </div>
+        </div>	
+        
+    
+     <div class="exsersize">  <a  href="#workout1" data-role="button" data-theme="b" id="Workout" onclick="startExcercise();">Start Complete Workout</a></div>
+     <div class="exsersize">  <a href="#workout1" data-role="button" data-theme="b" id="Exercise" onclick="startworkoutlist();">Start from Exercise</a></div>
+       
+      </div>
+</div>
+  <!-- Routine Page End -->
+
+
+<!--Hip_Bridge  Video Detail of  Page start  -->
+<div data-role="page" id="Hip_Bridge" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+				</div>
+                <div class="remainingExercises">
+                1/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg" >
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Hip Bridge</span></div>
+              <div class="floatright remaintimediv"><span class="remaintitle"></span><span class="remainimage"></span></div>
+          </div>
+       
+    <div class="video">
+	        <video id="Hip_Bridge_video" width="100%"  preload="auto" poster="hip_bridge.mp4">
+               </video>
+          </div>
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+		  <div class="equipdetail"> 
+                  <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Butt/Hips</span></div>
+                  <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+     
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie on your back with knees bent and feet flat on the floor, arms by your sides.</li>
+            <li>Lift your hips off the floor until your back forms a straight line from knees to shoulders.</li>
+            <li>Hold this peak position for a 2 second contraction, really squeezing your hamstrings and glutes.</li>
+            <li>Slowly lower your hips back to the starting position and repeat.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme="" class="footer footerbar">
+                <div class="floatleft">
+           <a href="#workout_routine" class="previous"  onclick='stopvido("","Hip_Bridge"")'></a>
+           
+                </div>
+  				 <div id="buttonbar">
+     				  <a id="play" onclick='playpausedefault("Hip_Bridge")'>&gt;</a>
+  				</div>
+    
+                <div class="floatright">
+                 
+                <a href="#Childs_Pose" class="next" onclick='stopvido("Childs_Pose","Hip_Bridge")' ></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!-- Hip_Bridge Video Detail PAge End -->
+
+  
+<!--Childs Pose  Video Detail of  Page start  -->
+<div data-role="page" id="Childs_Pose" class="video_detail">
+ <div data-theme=""  style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                2/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Childs Pose</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+      
+    <div class="video">
+              <video  id="Childs_Pose_video"  width="100%" preload="auto" poster="childs_pose.mp4">
+              </video>
+
+          
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back, Butt/Hips, Legs – Thighs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Come to a hands and knees position on the mat with your toes pointing behind you, big toes touching</li>
+            <li>Widen your knees towards the outside of the mat as you sit back toward your heels.</li>
+            <li>As you sit back, try to bring your hips all the way to your heels or as far back as possible. Stretch out through your back and arms.</li>
+            <li>Pull the shoulders down and back. Keep them away from your ears. Allow your chest to rest between your thighs and your forehead to rest on the floor. </li>
+            <li>Inhale as you lengthen the spine, extending through the upper body, and exhale as you fold deeper into the pose, widening the knees as needed.</li>
+            <li>Hold this position for 5-10 slow, deep breaths (approximately 30 seconds to a minute).</li>
+    		<li>Exercise variation: Rest your arms alongside the body (toward your hips) with the palms facing upward and the fronts of your shoulders toward the floor.</li>
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Hip_Bridge" class="previous" onclick='stopvido("Hip_Bridge","Childs_Pose")' ></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Childs_Pose")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Sit_Ups" class="next" onclick='stopvido("Sit_Ups","Childs_Pose")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!-- Childs Pose Video Detail PAge End -->
+
+<!--Sit-Ups  Video Detail of  Page start  -->
+<div data-role="page" id="Sit_Ups" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                3/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Sit-Ups</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+       
+    <div class="video">
+              <video  id="Sit_Ups_video"  width="100%"  preload="auto" poster="sit_ups.mp4">
+                      </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+        <ul>
+            <li>Lie flat on your back on the floor with your knees bent at 90 degrees and feet flat on the floor. Place your hands behind your head and lock them together by clasping your fingers.</li>
+            <li>Raise your upper body so that it creates an imaginary V-shape with your thighs.</li>
+            <li>Once you feel the contraction for a second, lower your upper body back down to the starting position.</li>
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Childs_Pose" class="previous" onclick='stopvido("Childs_Pose","Sit_Ups")' ></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Sit_Ups")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Side_Bends" class="next" onclick='stopvido("Side_Bends","Sit_Ups")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Sit-Ups Video Detail PAge End -->
+
+
+
+<!--Side_Bends  Video Detail of  Page start  -->
+<div data-role="page" id="Side_Bends" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                4/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Side Bends</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        
+    <div class="video">
+              <video  id="Side_Bends_video"   width="100%"  preload="auto" poster="side_bends.mp4">
+                      </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Begin with feet slightly wider than shoulder-width apart</li>
+            <li>Slowly bend to the right as far as you can  </li>
+            <li>Pause, then slowly return to an upright position.  </li>
+            <li>Repeat, bending to the left side.</li>
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Sit_Ups" class="previous" onclick='stopvido("Sit_Ups","Side_Bends")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Side_Bends")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Reverse_Marches" class="next" onclick='stopvido("Reverse_Marches","Side_Bends")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Side_Bends Video Detail PAge End -->
+
+<!--Reverse_Marches  Video Detail of  Page start  -->
+<div data-role="page" id="Reverse_Marches" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                5/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Reverse Marches</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         
+    <div class="video">
+              <video  id="Reverse_Marches_video" width="100%"  preload="auto" poster="reverse_marches.mp4">
+                      </video>
+          </div>
+          
+ 
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+         	<li>Lie on your back on a mat in a bent-knee position with feet placed firmly on the floor, arms outstretched to your sides in a "T" position; palms facing upward.</li>
+            <li>Slowly lift one foot off the floor while keeping your knee bent at 90-degrees. </li>
+            <li>Hold this position for 3-5 seconds </li>
+            <li>Return to the starting position and repeat with your alternate leg</li>
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Side_Bends" class="previous" onclick='stopvido("Side_Bends","Reverse_Marches")'></a>
+           
+                </div>
+                <div id="buttonbar">
+      					 <a id="play" onclick='playpausedefault("Reverse_Marches")'>&gt;</a>
+   				 </div>
+                <div class="floatright">
+                 
+                <a href="#T_Kicks" class="next" onclick='stopvido("T_Kicks","Reverse_Marches")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Reverse_Marches Video Detail PAge End -->
+<!--T_Kicks  Video Detail of  Page start  -->
+<div data-role="page" id="T_Kicks" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                6/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>T-Kicks</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+           <video  id="T_Kicks_video" width="100%"  preload="auto" poster="t_kicks.mp4">
+                      </video>
+          
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Lower Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+        <ul>
+          <li>Stand straight up and hold your arms straight out to your side as if you are in a "T"</li>
+            <li>Then using your abdominal muscles kick your right leg out in front of you.</li>
+            <li>Your foot will come right about to the level of your hips/belly button or higher.</li>
+            <li>Repeat for desired reps.</li>
+
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Reverse_Marches" class="previous" onclick='stopvido("Reverse_Marches","T_Kicks")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("T_Kicks")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+                <a href="#Modified_Plank" class="next" onclick='stopvido("Modified_Plank","T_Kicks")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--T_Kicks Video Detail PAge End -->
+
+
+<!--Modified_Plank  Video Detail of  Page start  -->
+<div data-role="page" id="Modified_Plank" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                7/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Modified Plank</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+       <div class="video">
+          
+              <video  id="Modified_Plank_video" width="100%"  preload="auto" poster="modified_plank.mp4">
+                      </video>
+          
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+          <li>Lie on your stomach and raise yourself up so you're resting on your forearms and knees. </li>
+           <li>Your elbows should be under your shoulders. </li>
+            <li>Pull your abs tight for three deep breaths, then slowly return to the starting position.</li>
+
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#T_Kicks" class="previous" onclick='stopvido("T_Kicks","Modified_Plank")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Modified_Plank")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+            <a href="#Cobra" class="next" onclick='stopvido("Cobra","Modified_Plank")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Modified_Plank Video Detail PAge End -->
+
+<!--Cobra  Video Detail of  Page start  -->
+<div data-role="page" id="Cobra" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+               <div class="remainingExercisesCustom">
+</div>
+               <div class="remainingExercises">
+                8/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Cobra</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="Cobra_video" width="100%"  preload="auto" poster="cobra.mp4">
+                      </video>
+          
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+          <li>Lie face down on the floor with your palms near your chest. </li>
+            <li>Lift your head, shoulders, and chest off the floor, pulling your shoulder blades down and together. </li>
+            <li>Hold for 2 counts and then lower back down. Repeat 8 to 10 times.  </li>
+            <li>For a more difficult exercise, try lifting your thighs and hips off the floor.</li>
+
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Modified_Plank" class="previous" onclick='stopvido("Modified_Plank","Cobra")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Cobra")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Single_Leg_Balance" class="next" onclick='stopvido("Single_Leg_Balance","Cobra")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Cobra Video Detail PAge End -->
+
+
+<!--Single_Leg_Balance  Video Detail of  Page start  -->
+<div data-role="page" id="Single_Leg_Balance" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                9/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Single Leg Balance</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Single_Leg_Balance_video" width="100%"  preload="auto" poster="single_leg_balance.mp4">
+                      </video>
+          
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+          <li>Starting Position:Stand with both feet together and parallel with each other. 
+          Pull your shoulder blades down your back and engage your abdominal muscles to stabilize the spine.
+           Bend your knees slightly and keep tension in your inner and outer thigh muscles.
+           This will help control the tendency to shift sideways during the single-leg stand.</li>
+            <li>Movement: Slowly lift one leg 3-6" off the floor; find your balance on the standing leg.
+             Avoid any sideways tilting or swaying in your upper body and try not to move the standing foot.
+             Hold for 10-15 seconds before returning the foot to the floor. Perform an equal number of repetitions with each foot. </li>
+
+
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Cobra" class="previous"  onclick='stopvido("Cobra","Single_Leg_Balance")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Single_Leg_Balance")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+                <a href="#Angel_Wipers" class="next" onclick='stopvido("Angel_Wipers","Single_Leg_Balance")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Single_Leg_Balance Video Detail PAge End -->
+
+
+<!--Angel_Wipers  Video Detail of  Page start  -->
+<div data-role="page" id="Angel_Wipers" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                10/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Angel Wipers</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Angel_Wipers_video" width="100%"  preload="auto" poster="angel_wipers.mp4">
+              </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Chest, Shoulders</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+          <li>Lie on your back on an exercise mat or firm surface, bending your knees until your feet are positioned flat on the floor.
+           Allow your arms to rest by your sides. Palms may face either up or down.</li>
+            <li>Bring your arms away from your sides to about 45-degrees, palms rotated toward the ceiling. Your upper arms should stay in contact with the mat. </li>
+	<li> Gently slide your arms along the mat to an overhead position to a point where your hands can touch and your elbows have a comfortable bend.</li>
+	<li>Gently bring your arms back to your starting position, using the same movement pattern.</li>
+       </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Single_Leg_Balance" class="previous" onclick='stopvido("Single_Leg_Balance","Angel_Wipers")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Angel_Wipers")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+                <a href="#" class="next" onclick='stopvido("","Angel_Wipers")'></a>
+
+                </div>
+   			</div>  <!-- /header---->
+</div>  <!--Angel_Wipers Video Detail PAge End -->
+
+<!----------------------------------Handout 2 ------------------------------------------>
+
+
+<!--Opposite_Arm_and_Leg_Raise video detail Page start  -->
+<div data-role="page" id="Opposite_Arm_and_Leg_Raise" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                1/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Opposite Arm and Leg Raise</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+          
+              <video  id="Opposite_Arm_and_Leg_Raise_video" width="100%"  preload="auto" poster="opposite_arm_and_leg_rise.mp4">
+		       </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back, Butt/Hips</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Begin on all fours, aligning your knees under your hips and your wrists under your shoulders.</li>
+            <li>Raise your left arm to shoulder height and your left leg to hip height.</li>
+            <li>Hold for 2 seconds, reaching forward with your fingers and back with your heels.</li>
+            <li>Repeat this exercise on the opposite side.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#workout_routine" class="previous" onclick='stopvido("","Opposite_Arm_and_Leg_Raise")' ></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Opposite_Arm_and_Leg_Raise")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Flutter_Kicks" class="next" onclick='stopvido("Flutter_Kicks","Opposite_Arm_and_Leg_Raise")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Opposite_Arm_and_Leg_Raise video detail Page End -->
+
+<!--Flutter_Kicks video detail Page start  -->
+<div data-role="page" id="Flutter_Kicks" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                2/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Flutter Kicks</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Flutter_Kicks_video" width="100%"  preload="auto" poster="flutter_kicks.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie on the floor and stabilize your body by placing your hands under your rear and pressing your palms firmly against the ground. Extend your legs out.</li>
+            <li>With your legs in a fixed slightly bent position throughout the movement. Keep one leg stationary while raising the other leg up until they are about 75 degrees above the level of the floor.</li>
+            <li>Reverse the movement and return to the starting point. </li>
+            <li>Repeat with other leg.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Opposite_Arm_and_Leg_Raise" class="previous" onclick='stopvido("Opposite_Arm_and_Leg_Raise","Flutter_Kicks")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Flutter_Kicks")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+                <a href="#Two_Leg_Ab_Isolation" class="next"  onclick='stopvido("Two_Leg_Ab_Isolation","Flutter_Kicks")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Flutter_Kicks video detail Page End -->
+
+<!--Two_Leg_Ab_Isolation video detail Page start  -->
+<div data-role="page" id="Two_Leg_Ab_Isolation" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                3/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>2 Leg Ab Isolation</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="Two_Leg_Ab_Isolation_video" width="100%"  preload="auto" poster="two_leg_ab_isolation.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Lower Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie on your back with both legs extended. Place your hands flat on the ground with palms down, wedging them under your butt slightly.</li>
+            <li>Lift both feet about a foot off the ground and hold them in place for 30 seconds.</li>
+            <li>Return to the starting position and repeat.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Flutter_Kicks" class="previous" onclick='stopvido("Flutter_Kicks","Two_Leg_Ab_Isolation")'></a>
+           
+                </div>
+                <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Two_Leg_Ab_Isolation")'>&gt;</a>
+    </div> 
+                <div class="floatright">
+                 
+                <a href="#Side_Plank_with_Straight_Leg_Left_Side" class="next" onclick='stopvido("Side_Plank_with_Straight_Leg_Left_Side","Two_Leg_Ab_Isolation")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Two_Leg_Ab_Isolation video detail Page End -->
+
+<!--Side_Plank_with_Straight_Leg_Left_Side video detail Page start  -->
+<div data-role="page" id="Side_Plank_with_Straight_Leg_Left_Side" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                4/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Side Plank with Straight Leg</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+          <div class="video">
+              <video  id="Side_Plank_with_Straight_Leg_Left_Side_video" width="100%"  preload="auto" poster="side_plank_with_straight_leg_left_side.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Obliques,TransversusAbdominus</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+      <ul>
+            <li>Lie on your right side on a mat with your legs straight and the left leg stacked directly on top of the right. </li>
+            <li> Bend your right elbow and place it directly under your shoulder.</li>
+            <li>Align your head with your spine and keep your hips and left knee in contact with the
+exercise mat.
+</li>
+ 			<li>Upward Phase:  Exhale; brace your spine by engaging your abs. Lift your hips and knees off the mat. Your body should form a straight line from your ankles to your shoulders.</li>
+            <li>Lie on your left side on a mat with your legs straight and the right leg stacked directly on top of the left. </li>
+            <li>Bend your left elbow and place it directly under your shoulder. </li>
+            <li>Lowering Phase: Inhale and return to your starting position.  </li>
+            <li>After the recommended amount of repetitions, repeat on the other side. </li>            
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Two_Leg_Ab_Isolation" class="previous" onclick='stopvido("Two_Leg_Ab_Isolation","Side_Plank_with_Straight_Leg_Left_Side")'></a>
+           
+                </div>
+                <div id="buttonbar">
+     				  <a id="play" onclick='playpausedefault("Side_Plank_with_Straight_Leg_Left_Side")'>&gt;</a>
+   				 </div>
+                <div class="floatright">
+                 
+                <a href="#Side_Plank_with_Straight_Leg_Right_Side" class="next" onclick='stopvido("Side_Plank_with_Straight_Leg_Right_Side","Side_Plank_with_Straight_Leg_Left_Side")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Side_Plank_with_Straight_Leg_Left_Side video detail Page End -->
+
+
+<!--Side_Plank_with_Straight_Leg_Right_Side video detail Page start  -->
+<div data-role="page" id="Side_Plank_with_Straight_Leg_Right_Side" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                5/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Squat Thrust with Twist</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Side_Plank_with_Straight_Leg_Right_Side_video" width="100%"  preload="auto" poster="side_plank_with_straight_leg_right_side.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Obliques, Legs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Stand with your feet shoulder-width apart and extend your arms in front of you at shoulder height.</li>
+            <li>Begin by squatting down, bending your knees 90 degrees, and twisting your upper body to the left.</li>
+            <li>Now come up and repeat the exercise to the right.</li>
+ 			<li>Keep your weight in your heels and don't allow your knees to jut forward away from your toes.</li>
+ 			<li>Keep your knees facing forward as your chest and shoulders move side to side.</li>
+ 			<li>For the best results, bend your knees as close to 90 degrees as possible.</li>
+        </ul>
+        </div>
+
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Side_Plank_with_Straight_Leg_Left_Side" class="previous" onclick='stopvido("Side_Plank_with_Straight_Leg_Left_Side","Side_Plank_with_Straight_Leg_Right_Side")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+     						  <a id="play" onclick='playpausedefault("Side_Plank_with_Straight_Leg_Right_Side")'>&gt;</a>
+  				  </div> 
+                <div class="floatright">
+                 
+                <a href="#Standing_Knee_Raises" class="next" onclick='stopvido("Standing_Knee_Raises","Side_Plank_with_Straight_Leg_Right_Side")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Side_Plank_with_Straight_Leg_Right_Side video detail Page End -->
+
+<!--Standing_Knee_Raises video detail Page start  -->
+<div data-role="page" id="Standing_Knee_Raises" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                6/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Standing Knee Raises</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Standing_Knee_Raises_video" width="100%"  preload="auto" poster="standing_knee_raises.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Butt/Hips,Legs - Thighs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Keeping your chest up at all duration, stand with both feet about hip width.</li>
+            <li>Lift one knee up as high as you can for 3 seconds without bending your torso or leaning any direction.</li>
+            <li>Maintain your balance.</li>
+ 			<li>Return the leg to the ground.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Side_Plank_with_Straight_Leg_Right_Side" class="previous" onclick='stopvido("Side_Plank_with_Straight_Leg_Right_Side","Standing_Knee_Raises")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+      					 <a id="play" onclick='playpausedefault("Standing_Knee_Raises")'>&gt;</a>
+    			</div> 
+                <div class="floatright">
+                 
+                <a href="#Standing_Core_Rotation" class="next" onclick='stopvido("Standing_Core_Rotation","Standing_Knee_Raises")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Standing_Knee_Raises video detail Page End -->
+
+<!--Standing_Core_Rotation video detail Page start  -->
+<div data-role="page" id="Standing_Core_Rotation" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                7/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Standing Core Rotation</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Standing_Core_Rotation_video" width="100%"  preload="auto" poster="standing_core_rotation.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">Dumbbell (Or by pick up any object you can grip easily, like a phone book, bottle of water or a closed laptop computer.)</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Standing with your feet hip-width apart, use both hands to hold a dumbbell straight out in front of your chest, core engaged.</li>
+            <li>Moving your torso slightly, slowly rotate your arms to the left as far as you can.</li>
+            <li>Pause, then rotate to the right. That's one rep.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Standing_Knee_Raises" class="previous" onclick='stopvido("Standing_Knee_Raises","Standing_Core_Rotation")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+     				  <a id="play" onclick='playpausedefault("Standing_Core_Rotation")'>&gt;</a>
+  				  </div> 
+                <div class="floatright">
+                 
+                <a href="#Prone_Plank" class="next" onclick='stopvido("Prone_Plank","Standing_Core_Rotation")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Standing_Core_Rotation video detail Page End -->
+
+<!--Prone_Plank video detail Page start  -->
+<div data-role="page" id="Prone_Plank" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                8/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Prone Plank</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+           <div class="video">
+              <video  id="Prone_Plank_video" width="100%"  preload="auto" poster="prone_plank.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Back</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Get into a full pushup position with your palms on the floor beneath your shoulders.</li>
+            <li>Hold for the recommended amount of duration, with your abs contracted and your arms and legs extended.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Standing_Core_Rotation" class="previous" onclick='stopvido("Standing_Core_Rotation","Prone_Plank")'></a>
+           
+                </div>
+                <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Prone_Plank")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Dumbbell_Side_Bends" class="next" onclick='stopvido("Dumbbell_Side_Bends","Prone_Plank")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Prone_Plank video detail Page End -->
+
+<!--Dumbbell_Side_Bends video detail Page start  -->
+<div data-role="page" id="Dumbbell_Side_Bends" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                9/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Dumbbell Side Bends</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+          <div class="video">
+              <video  id="Dumbbell_Side_Bends_video" width="100%"  preload="auto" poster="dumbbell_side_bends.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">Dumbbells(You can substitute dumbbells with jugs of milk or water; grocery bags filled with items or a back packfilled with something heavy- books, cans of food, just about anything.)</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Hold a pair of dumbbells at your sides, arms straight and core engaged.</li>
+            <li>Slowly bend to the right as far as you can, lowering the weight toward your right knee.</li>
+            <li>Pause, then slowly return to an upright position. </li>
+            <li>Repeat, bending to the left side.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Prone_Plank" class="previous" onclick='stopvido("Prone_Plank","Dumbbell_Side_Bends")'></a>
+           
+                </div>
+                <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Dumbbell_Side_Bends")'>&gt;</a>
+    </div>  
+                <div class="floatright">
+                 
+                <a href="#Single_Leg_Side_Balance_Reach" class="next" onclick='stopvido("Single_Leg_Side_Balance_Reach","Dumbbell_Side_Bends")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Dumbbell_Side_Bends video detail Page End -->
+
+
+<!--Single_Leg_Side_Balance_Reach video detail Page start  -->
+<div data-role="page" id="Single_Leg_Side_Balance_Reach" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                10/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Single Leg Side Balance Reach</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Single_Leg_Side_Balance_Reach_video" width="100%"  preload="auto" poster="single_leg_side_balance_reach.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Legs - Thighs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Stand with feet hip-width apart, knees slightly bent, abs engaged, hands on hips.</li>
+            <li>Balance on one leg and lift the other directly beside it.</li>
+            <li>Extend and point the lifted leg and toe to the side, keeping your hips facing forward.</li>
+            <li>Return the lifted leg to the starting position and repeat.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Dumbbell_Side_Bends" class="previous" onclick='stopvido("Dumbbell_Side_Bends","Single_Leg_Side_Balance_Reach")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+      					 <a id="play" onclick='playpausedefault("Single_Leg_Side_Balance_Reach")'>&gt;</a>
+   				 </div>	
+                <div class="floatright">
+                 
+                <a href="#" class="next" onclick='stopvido("","Single_Leg_Side_Balance_Reach")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Single_Leg_Side_Balance_Reach video detail Page End -->
+
+
+<!-- Workout 3 Pages STart -->
+
+<!--Spiderman_Planks video detail Page start  -->
+<div data-role="page" id="Spiderman_Planks" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                1/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Spiderman Planks</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+       <div class="video">
+              <video  id="Spiderman_Planks_video" width="100%"  preload="auto" poster="spiderman_planks.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Butt/Hips,Legs - Thighs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Begin in a low plank position.</li>
+            <li>Alternate bringing each knee to the outside of your elbow on the same side.</li>
+            <li>Return to the starting position and repeat.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#workout_routine" class="previous" onclick='stopvido("","Spiderman_Planks")'></a>
+           
+                </div>
+                   <div id="buttonbar">
+      						<a id="play" onclick='playpausedefault("Spiderman_Planks")'>&gt;</a>
+   					 </div>
+                <div class="floatright">
+                 
+                <a href="#Reverse_Crunches" class="next" onclick='stopvido("Reverse_Crunches","Spiderman_Planks")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Spiderman_Planks video detail Page End -->
+
+<!--Reverse_Crunches video detail Page start  -->
+<div data-role="page" id="Reverse_Crunches" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                2/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Reverse Crunches</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="Reverse_Crunches_video" width="100%"  preload="auto" poster="reverse_crunches.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie on the floor and place hands on the floor or behind the head.</li>
+            <li>Bring the knees in towards the chest until they're bent to 90 degrees, with feet together.</li>
+            <li>Contract the abs to curl the hips off the floor, reaching the legs up towards the ceiling.</li>
+            <li>Lower and repeat for recommended amount of reps.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Spiderman_Planks" class="previous" onclick='stopvido("Spiderman_Planks","Reverse_Crunches")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+    				   <a id="play" onclick='playpausedefault("Reverse_Crunches")'>&gt;</a>
+  			  </div>
+                <div class="floatright">
+                 
+                <a href="#Cross_Leg_Sit_Ups" class="next" onclick='stopvido("Cross_Leg_Sit_Ups","Reverse_Crunches")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Reverse_Crunches video detail Page End -->
+
+<!--Cross_Leg_Sit_Ups video detail Page start  -->
+<div data-role="page" id="Cross_Leg_Sit_Ups" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                3/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Cross Leg Sit-Ups</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Cross_Leg_Sit_Ups_video" width="100%"  preload="auto" poster="cross_leg_situps.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Obliques</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Assume start position by laying on back and crossing your right ankle over your left knee.</li>
+            <li>Support head with your left hand while your right hand is palm down on your right side.</li>
+            <li>Bring your left elbow to your right knee.</li>
+            <li>Repeat for desired reps.</li>
+        </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""   class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Reverse_Crunches" class="previous" onclick='stopvido("Reverse_Crunches","Cross_Leg_Sit_Ups")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+     				 <a id="play" onclick='playpausedefault("Cross_Leg_Sit_Ups")'>&gt;</a>
+   				 </div>
+                <div class="floatright">
+                 
+                <a href="#Leg_Climbers" class="next" onclick='stopvido("Leg_Climbers","Cross_Leg_Sit_Ups")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Cross_Leg_Sit_Ups video detail Page End -->
+
+
+<!--Leg_Climbers video detail Page start  -->
+<div data-role="page" id="Leg_Climbers" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                4/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Leg Climbers</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Leg_Climbers_video" width="100%"  preload="auto" poster="leg_climbers.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Butt/Hips</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie flat on your back with your right leg resting on the ground and your left leg up in the air, perpendicular to the floor.</li>
+            <li>Roll your torso up towards your left leg.</li>
+            <li>With your left hand, reach for your left hip. Grab your left knee with your right hand. Let go of your hip and reach for your toe with your left hand. It should look like you are climbing up your leg like a pole.</li>
+            <li>Lower yourself back down, keeping space between your chest and chin.</li>
+            <li>Repeat for desired reps.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Cross_Leg_Sit_Ups" class="previous" onclick='stopvido("Cross_Leg_Sit_Ups","Leg_Climbers")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+       					<a id="play" onclick='playpausedefault("Leg_Climbers")'>&gt;</a>
+   				 </div>
+                <div class="floatright">
+                 
+                <a href="#Bicycle_Crunches" class="next" onclick='stopvido("Bicycle_Crunches","Leg_Climbers")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Leg_Climbers video detail Page End -->
+
+<!--Bicycle_Crunches video detail Page start  -->
+<div data-role="page" id="Bicycle_Crunches" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                5/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Bicycle Crunches</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Bicycle_Crunches_video" width="100%"  preload="auto" poster="bicycle_crunches.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Lie flat on the floor with your lower back pressed to the ground and contract your core muscles.</li>
+            <li>With your hands gently holding your head, lift your knees to about a 45-degree angle.</li>
+            <li>Slowly, go through a bicycle pedal motion kicking forward with the right leg and bringing in the knee of the left leg.</li>
+            <li>Alternately touching your elbows to the opposite knees as you twist back and forth.</li>
+            <li>Continue alternating until all recommended amount of repetitions have been completed.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Leg_Climbers" class="previous" onclick='stopvido("Leg_Climbers","Bicycle_Crunches")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+     						  <a id="play" onclick='playpausedefault("Bicycle_Crunches")'>&gt;</a>
+   				 </div>
+                <div class="floatright">
+                 
+                <a href="#Side_Scissor_Kicks" class="next" onclick='stopvido("Side_Scissor_Kicks","Bicycle_Crunches")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Bicycle_Crunches video detail Page End -->
+
+<!--Side_Scissor_Kicks video detail Page start  -->
+<div data-role="page" id="Side_Scissor_Kicks" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+               <div class="remainingExercisesCustom">
+</div>
+               <div class="remainingExercises">
+                6/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Side Scissor Kicks</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="Side_Scissor_Kicks_video" width="100%"  preload="auto" poster="side_scissor_kicks.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Starting Position: Lie on your back with your legs extended. Place your hands flat on the ground with palms down, wedging them under your butt slightly.</li>
+            <li>Raise your feet about a foot off the ground.</li>
+            <li>Kick your feet back and forth from side-to-side.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Bicycle_Crunches" class="previous" onclick='stopvido("Bicycle_Crunches","Side_Scissor_Kicks")'></a>
+           
+                </div>
+                <div id="buttonbar">
+    				   <a id="play" onclick='playpausedefault("Side_Scissor_Kicks")'>&gt;</a>
+  				  </div>
+                <div class="floatright">
+                 
+                <a href="#High_Low_Plank" class="next" onclick='stopvido("High_Low_Plank","Side_Scissor_Kicks")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Side_Scissor_Kicks video detail Page End -->
+
+<!--High_Low_Plank video detail Page start  -->
+<div data-role="page" id="High_Low_Plank" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                7/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>High-Low Plank</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="High_Low_Plank_video" width="100%"  preload="auto" poster="high_low_plank.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Arms, Chest, Shoulders</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Begin in a high plank position on your hands, lower down to your elbows one at a time, then raise back up to your hands.</li>
+            <li>Start out on the right side first, then on the left side.</li>
+            <li>Repeat for desired reps.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Side_Scissor_Kicks" class="previous" onclick='stopvido("Side_Scissor_Kicks","High_Low_Plank")'></a>
+           
+                </div>
+                <div id="buttonbar">
+      					 <a id="play" onclick='playpausedefault("High_Low_Plank")'>&gt;</a>
+   				 </div> 
+                <div class="floatright">
+                 
+                <a href="#Bow_Extension" class="next" onclick='stopvido("Bow_Extension","High_Low_Plank")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- High_Low_Plank video detail Page End -->
+
+<!--Bow_Extension video detail Page start  -->
+<div data-role="page" id="Bow_Extension" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                8/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Bow Extension</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+        <div class="video">
+              <video  id="Bow_Extension_video" width="100%"  preload="auto" poster="bow_extension.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">Dumbbell (Or pick up any object you can grip easily, like a phone book, bottle of water or a closed laptop computer).</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Hold a dumbbell in both hands above your right shoulder and point your left foot out to the side.</li>
+            <li>In one motion, draw your elbows down to lower the weight as you bend your left knee toward your chest. </li>
+            <li>Reverse the movement to return to start. That's one rep. </li>
+            <li>Perform the suggested number of reps, then switch sides and repeat.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#High_Low_Plank" class="previous" onclick='stopvido("High_Low_Plank","Bow_Extension")'></a>
+           
+                </div>
+                  <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Bow_Extension")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#Reverse_Plank" class="next" onclick='stopvido("Reverse_Plank","Bow_Extension")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Bow_Extension video detail Page End -->
+
+
+<!--Reverse_Plank video detail Page start  -->
+<div data-role="page" id="Reverse_Plank" class="video_detail">
+ <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                9/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Reverse Plank</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+          <div class="video">
+              <video  id="Reverse_Plank_video" width="100%"  preload="auto" poster="reverse_plank.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs, Back, Triceps, Shoulders</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Sit down with legs positioned pointing directly out in front of you.</li>
+            <li>Place your arms behind you with hands palm down on the floor. Straighten your arms and turn your hands inward so that your fingertips point towards your back. Keep your hands flat.</li>
+            <li>Inhale and press up using your arms and lift your hips up towards the ceiling. Do not allow your torso, the core of your body, to sag but instead maintain a straight line from your shoulders to the heels of your feet.</li>
+            <li>Exhale once you have lifted your core. Maintain a slow breathing technique.</li>
+            <li>Drop your head so that it hangs backwards while the rest of you is taut and straight.</li>
+            <li>Tighten and release your thigh and buttock muscles.</li>
+            <li>Hold this formation for about either 30 seconds or a minute. Perform this exercise anywhere from 3 minutes to as long as you'd like.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Bow_Extension" class="previous" onclick='stopvido("Bow_Extension","Reverse_Plank")'></a>
+           
+                </div>
+                <div id="buttonbar">
+   					    <a id="play" onclick='playpausedefault("Reverse_Plank")'>&gt;</a>
+  				  </div>
+                <div class="floatright">
+                 
+                <a href="#Single_Leg_Internal_External_Rotation" class="next" onclick='stopvido("Single_Leg_Internal_External_Rotation","Reverse_Plank")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Reverse_Plank video detail Page End -->
+
+
+<!--Single_Leg_Internal_External_Rotation video detail Page start  -->
+<div data-role="page" id="Single_Leg_Internal_External_Rotation" class="video_detail">
+ <div data-theme=""  style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="back"></a>
+                </div>
+                <div class="heading-bar"><b>Exercise Detail</b></div>
+                <div class="remainingExercisesCustom">
+</div>
+                <div class="remainingExercises">
+                10/10
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+          <div class="excersicedetail">
+              <div class="floatleft"><span>Single Leg Internal/Exteral Rotation</span></div>
+              <div class="floatright"><span class="remaintitle"></span><span class="remainimage">0</span></div>
+          </div>
+         <div class="video">
+              <video  id="Single_Leg_Internal_External_Rotation_video" width="100%"  preload="auto" poster="single_leg_internal_external_rotation.mp4">
+                </video>
+          </div>
+          
+
+         <div class="homebutton"><a href="#workout_routine">Home</a></div>
+ <div class="equipdetail"> <div class=""><span class="lightblue">Target Body Part: </span><span class="gray">Abs,Butt/Hips,Legs - Thighs</span></div> <div class=""><span class="lightblue">Equipment Needed: </span><span class="gray">No Equipment</span></div>
+          </div>
+        <div class="excersicedescription">
+      <br>
+       <ul>
+            <li>Stand with your feet pointed straight ahead and hip-width apart.</li>
+            <li>Balance on your left leg and lift your right knee to your waist.</li>
+            <li>Maintaining this leg position, bring your right leg across your body so your right knee crosses your left leg.</li>
+            <li>Continuing the sequence, bring your right leg back across the body.</li>
+            <li>Allow your right hip to open bringing your right knee toward the right side of the room.</li>
+            <li>Hold each point for a few seconds then return to the starting position.</li>
+            <li>Repeat for the recommended amount.</li>
+		 </ul>
+        </div>
+   </div> <!--content end -->
+   <div data-theme=""  class="footer footerbar">
+                <div class="floatleft">
+                <a href="#Reverse_Plank" class="previous" onclick='stopvido("Reverse_Plank","Single_Leg_Internal_External_Rotation")'></a>
+           
+                </div>
+                 <div id="buttonbar">
+       <a id="play" onclick='playpausedefault("Single_Leg_Internal_External_Rotation")'>&gt;</a>
+    </div>
+                <div class="floatright">
+                 
+                <a href="#" class="next" onclick='stopvido("","Single_Leg_Internal_External_Rotation")'></a>
+
+                </div>
+   			</div>  <!-- /footer---->
+</div>  <!-- Single_Leg_Internal_External_Rotation video detail Page End -->
+
+
+    
+    
+    <!--- Workout List 1 PAge Start -->
+    <div data-role="page" id="workout_list1" class="workout_list">
+        <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+            <div>
+                <a href="#workout_routine" class="back"></a>
+            </div>
+            <div class="heading-bar"><b>Workout#1</b></div>
+        </div>  <!-- /header---->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" class="videolist">
+                <li><a class="Hip_Bridge_li" onclick='startcustomexcercise("Childs_Pose","Hip_Bridge")'>
+                    <img src="images/video/hipbridge.jpg">
+                        <h2>Hip Bridge</h2>
+                     </a>
+                </li>
+                <li><a class="Childs_Pose_li" onclick='startcustomexcercise("Sit_Ups","Childs_Pose")'>
+                    <img src="images/video/childpose.jpg">
+                        <h2>Childs Pose</h2>
+                        </a>
+                </li>
+                <li><a class="Sit_Ups_li" onclick='startcustomexcercise("Side_Bends","Sit_Ups")'>
+                    <img src="images/video/situps.jpg">
+                        <h2>Sit-Ups</h2>
+                        </a>
+                </li>
+                <li><a class="Side_Bends_li" onclick='startcustomexcercise("Reverse_Marches","Side_Bends")'>
+                    <img src="images/video/sidebends.jpg">
+                        <h2>Side Bends</h2>
+                        </a>
+                </li>
+                </li>
+                <li><a class="Reverse_Marches_li" onclick='startcustomexcercise("T_Kicks","Reverse_Marches")'>
+                    <img src="images/video/reversemarches.jpg">
+                        <h2>Reverse Marches</h2>
+                        </a>
+                </li>
+                <li><a class="T_Kicks_li" onclick='startcustomexcercise("Modified_Plank","T_Kicks")'>
+                    <img src="images/video/T-Kicks.jpg">
+                        <h2>T-Kicks</h2>
+                        </a>
+                </li>
+                <li><a class="Modified_Plank_li" onclick='startcustomexcercise("Cobra","Modified_Plank")'>
+                    <img src="images/video/Modified Plank.jpg">
+                        <h2>Modified Plank </h2>
+                        </a>
+                </li>
+                <li><a class="Cobra_li" onclick='startcustomexcercise("Single_Leg_Balance","Cobra")'>
+                    <img src="images/video/Cobra.jpg">
+                        <h2>Cobra </h2>
+                        </a>
+                </li>
+                <li><a class="Single_Leg_Balance_li" onclick='startcustomexcercise("Angel_Wipers","Single_Leg_Balance")'>
+                    <img src="images/video/Single Leg Balance.jpg">
+                        <h2>Single Leg Balance</h2>
+                        </a>
+                </li>
+                 <li><a class="Angel_Wipers_li" onclick='startcustomexcercise("","Angel_Wipers")'>
+                    <img src="images/video/Angel Wipers.jpg">
+                        <h2>Angel Wipers</h2>
+                        </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Workout List 1 End -->
+  <!--- Workout List 2 PAge Start -->
+    <div data-role="page" id="workout_list2" class="workout_list">
+        <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+            <div>
+                <a href="#workout_routine" class="back"></a>
+            </div>
+            <div class="heading-bar"><b>Workout#2</b></div>
+        </div>  <!-- /header---->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" class="videolist">
+                <li><a class="Opposite_Arm_and_Leg_Raise_li" onclick='startcustomexcercise("Flutter_Kicks","Opposite_Arm_and_Leg_Raise")'>
+                    <img src="images/video2/Opposite Arm and Leg Raise.jpg">
+                        <h2>Opposite Arm and Leg Raise</h2>
+                        </a>
+                        
+                </li>
+                <li><a class="Flutter_Kicks_li" onclick='startcustomexcercise("Two_Leg_Ab_Isolation","Flutter_Kicks")'>
+                    <img src="images/video2/Flutter Kicks.jpg">
+                        <h2>Flutter Kicks</h2>
+                        </a>
+                </li>
+                <li><a class="Two_Leg_Ab_Isolation_li" onclick='startcustomexcercise("Side_Plank_with_Straight_Leg_Left_Side","Two_Leg_Ab_Isolation")'>
+                    <img src="images/video2/2-Leg Ab Isolation.jpg">
+                        <h2>2-Leg Ab Isolation</h2>
+                        </a>
+                </li>
+                <li><a class="Side_Plank_with_Straight_Leg_Left_Side_li" onclick='startcustomexcercise("Side_Plank_with_Straight_Leg_Right_Side","Side_Plank_with_Straight_Leg_Left_Side")'>
+                    <img src="images/video2/Side Plank with Straight Leg (Left Side).jpg">
+                        <h2>Side Plank with Straight Leg</h2>
+                        </a>
+                </li>
+                <li><a class="Side_Plank_with_Straight_Leg_Right_Side_li" onclick='startcustomexcercise("Standing_Knee_Raises","Side_Plank_with_Straight_Leg_Right_Side")'>
+                    <img src="images/video2/Squat Thrust with Twist.jpg">
+                        <h2>Squat Thrust with Twist</h2>
+                        </a>
+                </li>
+                <li><a class="Standing_Knee_Raises_li" onclick='startcustomexcercise("Standing_Core_Rotation","Standing_Knee_Raises")'>
+                    <img src="images/video2/Standing Knee Raises.jpg">
+                        <h2>Standing Knee Raises</h2>
+                        </a>
+                </li>
+                <li><a class="Standing_Core_Rotation_li" onclick='startcustomexcercise("Prone_Plank","Standing_Core_Rotation")'>
+                    <img src="images/video2/Standing Core Rotation.jpg">
+                        <h2>Standing Core Rotation </h2>
+                        </a>
+                </li>
+                <li><a class="Prone_Plank_li" onclick='startcustomexcercise("Dumbbell_Side_Bends","Prone_Plank")'>
+                    <img src="images/video2/Prone Plank.jpg">
+                        <h2>Prone Plank</h2>
+                        </a>
+                </li>
+                <li><a class="Dumbbell_Side_Bends_li" onclick='startcustomexcercise("Single_Leg_Side_Balance_Reach","Dumbbell_Side_Bends")'>
+                    <img src="images/video2/Dumbbell Side Bends.jpg">
+                        <h2>Dumbbell Side Bends</h2>
+                        </a>
+                </li>
+                <li><a class="Single_Leg_Side_Balance_Reach_li" onclick='startcustomexcercise("","Single_Leg_Side_Balance_Reach")'>
+                    <img src="images/video2/Single Leg Side Balance Reach.jpg">
+                        <h2>Single Leg Side Balance Reach</h2>
+                        </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Workout List 2 End -->
+
+    <!--- Workout List3 PAge Start -->
+    <div data-role="page" id="workout_list3" class="workout_list">
+        <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+            <div>
+                <a href="#workout_routine" class="back"></a>
+            </div>
+            <div class="heading-bar"><b>Workout#3</b></div>
+        </div>  <!-- /header---->
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true" class="videolist">
+                <li><a class="Spiderman_Planks_li" onclick='startcustomexcercise("Reverse_Crunches","Spiderman_Planks")'>
+                    <img src="images/video3/Spiderman Planks.jpg">
+                        <h2>Spiderman Planks</h2>
+                        </a>
+                </li>
+                <li><a class="Reverse_Crunches_li" onclick='startcustomexcercise("Cross_Leg_Sit_Ups","Reverse_Crunches")'>
+                    <img src="images/video3/Reverse Crunches.jpg">
+                        <h2>Reverse Crunches</h2>
+                        </a>
+                </li>
+                <li><a class="Cross_Leg_Sit_Ups_li" onclick='startcustomexcercise("Leg_Climbers","Cross_Leg_Sit_Ups")'>
+                    <img src="images/video3/Cross Leg Situps.jpg">
+                        <h2>Cross Leg Sit-Ups</h2>
+                        </a>
+                </li>
+                <li><a class="Leg_Climbers_li" onclick='startcustomexcercise("Bicycle_Crunches","Leg_Climbers")'>
+                    <img src="images/video3/Leg Climbers.jpg">
+                        <h2>Leg Climbers</h2>
+                        </a>
+                </li>
+                </li>
+                <li><a class="Bicycle_Crunches_li" onclick='startcustomexcercise("Side_Scissor_Kicks","Bicycle_Crunches")'>
+                    <img src="images/video3/Bicycle Crunches.jpg">
+                        <h2>Bicycle Crunches</h2>
+                        </a>
+                </li>
+                <li><a class="Side_Scissor_Kicks_li" onclick='startcustomexcercise("High_Low_Plank","Side_Scissor_Kicks")'>
+                    <img src="images/video3/Side Scissor Kicks.jpg">
+                        <h2>Side Scissor Kicks</h2>
+                        </a>
+                </li>
+                <li><a class="High_Low_Plank_li" onclick='startcustomexcercise("Bow_Extension","High_Low_Plank")'>
+                    <img src="images/video3/High-low Plank.jpg">
+                        <h2>High-Low Plank</h2>
+                        </a>
+                </li>
+                <li><a class="Bow_Extension_li" onclick='startcustomexcercise("Reverse_Plank","Bow_Extension")'>
+                    <img src="images/video3/Bow Extension.jpg">
+                        <h2>Bow Extension </h2>
+                        </a>
+                </li>
+                <li><a class="Reverse_Plank_li" onclick='startcustomexcercise("Single_Leg_Internal_External_Rotation","Reverse_Plank")'>
+                    <img src="images/video3/Reverse Plank.jpg">
+                        <h2>Reverse Plank</h2>
+                        </a>
+                </li>
+                <li><a class="Single_Leg_Internal_External_Rotation_li" onclick='startcustomexcercise("","Single_Leg_Internal_External_Rotation")'>
+                    <img src="images/video3/Single leg internal external rotation.jpg">
+                        <h2>Single Leg Internal/External Rotation</h2>
+                        </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+  <!--- Random Workout List PAge Start -->
+
+  <!--- Random Workout List PAge Start -->
+    <div data-role="page" id="custom_workout" class="workout_list custom_workout">
+        <div data-theme="" style="background-color:#0d497a" class="border headerbar">
+            <div>
+                    <a onclick="customworkout();" class="save">Save</a>
+                    </div>
+                    <div class="heading-bar"><b>Exercise Detail</b></div>
+                    <div>
+                    <a class="clearall">Clear All</a>
+                   
+   			</div>  <!-- /header---->
+        </div>  <!-- /header---->
+        <div data-role="content">
+
+		   	<ul data-role="" data-inset="true" class="videolist custom_workoutul">
+						<li><a href="#"><div class="floatleft"><img src="images/video/hipbridge.jpg">
+	         	<h2>Hip Bridge</h2>  </div> <div class="floatright"><input type="checkbox" name="Hip_Bridge_chk" id="Hip_Bridge_chk" class="custom">
+				<label for="Hip_Bridge_chk"></label></div></a> 
+                </li>
+                <li><a href="#"><div class="floatleft"><img src="images/video/childpose.jpg">
+				<h2>Childs Pose</h2></div> <div class="floatright">	<input type="checkbox" name="Childs_Pose_chk" id="Childs_Pose_chk">
+				<label for="Childs_Pose_chk"></label></div> </a>
+                </li>
+                <li><a href="#"><div class="floatleft"><img src="images/video/situps.jpg">
+				<h2>Sit-Ups</h2></div> <div class="floatright">	<input type="checkbox" name="Sit_Ups_1_chk" id="Sit_Ups_1_chk">
+				<label for="Sit_Ups_1_chk"></label></div> </a>	
+                </li>	
+                <li>	<a href="#"><div class="floatleft">
+				<img src="images/video/sidebends.jpg"><h2>Side Bends </h2></div> <div class="floatright"><input type="checkbox" name="Side_Bends_1_chk" id="Side_Bends_1_chk">
+				<label for="Side_Bends_1_chk"></label></div> </a>
+                </li>
+                <li><a href="#"><div class="floatleft">
+				<img src="images/video/reversemarches.jpg"><h2>Reverse Marches</h2></div> <div class="floatright">
+				<input type="checkbox" name="Reverse_Marches_chk" id="Reverse_Marches_chk">
+				<label for="Reverse_Marches_chk"></label></div></a>
+				</li>	
+                <li><a href="#"><div class="floatleft">	<img src="images/video/T-Kicks.jpg">	<h2>T-Kicks</h2></div> <div class="floatright">
+				<input type="checkbox" name="T_Kicks_chk" id="T_Kicks_chk"><label for="T_Kicks_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video/Modified Plank.jpg"><h2>Modified Plank </h2></div> <div class="floatright">
+				<input type="checkbox" name="Modified_Plank_chk" id="Modified_Plank_chk"><label for="Modified_Plank_chk"></label></div> </a>
+                </li>
+				<li><a href="#"><div class="floatleft">	<img src="images/video/Cobra.jpg"><h2>Cobra </h2></div> <div class="floatright"><input type="checkbox" name="Cobra_chk" id="Cobra_chk">
+				<label for="Cobra_chk"></label></div> </a>
+                </li>
+                <li><a href="#"><div class="floatleft">	<img src="images/video/Single Leg Balance.jpg">
+				<h2>Single Leg Balance</h2></div> <div class="floatright"><input type="checkbox" name="Single_Leg_Balance_chk" id="Single_Leg_Balance_chk">
+				<label for="Single_Leg_Balance_chk"></label></div> </a>	</li>
+                
+                <li style><a href="#"><div class="floatleft">	<img src="images/video/Angel Wipers.jpg">
+				<h2>Angel Wipers</h2></div> <div class="floatright"><input type="checkbox" name="Angel_Wipers_chk" id="Angel_Wipers_chk">
+				<label for="Angel_Wipers_chk"></label></div> </a></li>
+                
+                <li><br><br></li>
+                
+                <li><a href="#"><div class="floatleft"><img src="images/video2/Opposite Arm and Leg Raise.jpg">
+				<h2>Opposite Arm and Leg Raise</h2></div> <div class="floatright">
+				<input type="checkbox" name="Opposite_Arm_and_Leg_Raise_chk" id="Opposite_Arm_and_Leg_Raise_chk">
+				<label for="Opposite_Arm_and_Leg_Raise_chk"></label></div> </a>	</li>
+                
+				<li><a href="#"><div class="floatleft">	<img src="images/video2/Flutter Kicks.jpg">
+				<h2>Flutter Kicks</h2></div> <div class="floatright"><input type="checkbox" name="Flutter_Kicks_chk" id="Flutter_Kicks_chk">
+				<label for="Flutter_Kicks_chk"></label></div> </a>	
+                </li>
+                <li><a href="#"><div class="floatleft">
+				<img src="images/video2/2-Leg Ab Isolation.jpg"><h2>2-Leg Ab Isolation</h2></div> <div class="floatright">
+				<input type="checkbox" name="Two_Leg_Ab_Isolation_chk" id="Two_Leg_Ab_Isolation_chk"><label for="Two_Leg_Ab_Isolation_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video2/Side Plank with Straight Leg (Left Side).jpg"><h2>Side Plank with Straight Leg</h2></div> <div class="floatright">
+				<input type="checkbox" name="Side_Plank_with_Straight_Leg_Left_Side_chk" id="Side_Plank_with_Straight_Leg_Left_Side_chk">
+
+				<label for="Side_Plank_with_Straight_Leg_Left_Side_chk"></label></div> </a>	
+                </li>
+                <li><a href="#"><div class="floatleft">
+				<img src="images/video2/Squat Thrust with Twist.jpg"><h2>Squat Thrust with Twist</h2></div> <div class="floatright">
+				<input type="checkbox" name="Side_Plank_with_Straight_Leg_Right_Side_chk" id="Side_Plank_with_Straight_Leg_Right_Side_chk">
+				<label for="Side_Plank_with_Straight_Leg_Right_Side_chk"></label></div> </a>
+                </li>
+                <li>
+				<a href="#"><div class="floatleft">	<img src="images/video2/Standing Knee Raises.jpg"><h2>Standing Knee Raises</h2></div> <div class="floatright">
+				<input type="checkbox" name="Standing_Knee_Raises_chk" id="Standing_Knee_Raises_chk">
+				<label for="Standing_Knee_Raises_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video2/Standing Core Rotation.jpg"><h2>Standing Core Rotation </h2></div> <div class="floatright">
+				<input type="checkbox" name="Standing_Core_Rotation_chk" id="Standing_Core_Rotation_chk">
+				<label for="Standing_Core_Rotation_chk"></label></div> </a>
+                	</li>
+                <li><a href="#"><div class="floatleft">
+				<img src="images/video2/Prone Plank.jpg"><h2>Prone Plank</h2></div> <div class="floatright">
+				<input type="checkbox" name="Prone_Plank_chk" id="Prone_Plank_chk">	<label for="Prone_Plank_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video2/Dumbbell Side Bends.jpg">	<h2>Dumbbell Side Bends</h2></div> <div class="floatright">
+				<input type="checkbox" name="Dumbbell_Side_Bends_chk" id="Dumbbell_Side_Bends_chk"><label for="Dumbbell_Side_Bends_chk"></label></div> </a>
+				</li>
+                <li style><a href="#"><div class="floatleft"><img src="images/video2/Single Leg Side Balance Reach.jpg"><h2>Single Leg Side Balance Reach</h2></div> <div class="floatright">
+				<input type="checkbox" name="Single_Leg_Side_Balance_Reach_chk" id="Single_Leg_Side_Balance_Reach_chk">
+				<label for="Single_Leg_Side_Balance_Reach_chk"></label></div> </a>
+                </li>
+                
+                <li><br><br></li>
+                
+                <li><a href="#"><div class="floatleft"><img src="images/video3/Spiderman Planks.jpg">
+				<h2>Spiderman Planks</h2></div> <div class="floatright"><input type="checkbox" name="Spiderman_Planks_chk" id="Spiderman_Planks_chk">
+				<label for="Spiderman_Planks_chk"></label></div> </a>
+                </li>
+                	<li><a href="#"><div class="floatleft"><img src="images/video3/Reverse Crunches.jpg">
+				<h2>Reverse Crunches</h2></div> <div class="floatright"><input type="checkbox" name="Reverse_Crunches_chk" id="Reverse_Crunches_chk">
+				<label for="Reverse_Crunches_chk"></label></div> </a>
+                </li>
+                <li><a href="#"><div class="floatleft"><img src="images/video3/Cross Leg Situps.jpg">
+				<h2>Cross Leg Sit-Ups</h2></div> <div class="floatright">	<input type="checkbox" name="Cross_Leg_Sit_Ups_chk" id="Cross_Leg_Sit_Ups_chk">
+				<label for="Cross_Leg_Sit_Ups_chk"></label></div> </a>
+                </li>	
+                <li>	<a href="#"><div class="floatleft">	<img src="images/video3/Leg Climbers.jpg">
+				<h2>Leg Climbers</h2></div> <div class="floatright"><input type="checkbox" name="Leg_Climbers_chk" id="Leg_Climbers_chk"><label for="Leg_Climbers_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video3/Bicycle Crunches.jpg"><h2>Bicycle Crunches</h2></div> <div class="floatright">
+				<input type="checkbox" name="Bicycle_Crunches_chk" id="Bicycle_Crunches_chk"><label for="Bicycle_Crunches_chk"></label></div> </a>
+				</li>
+                 	<li><a href="#"><div class="floatleft">	<img src="images/video3/Side Scissor Kicks.jpg"><h2>Side Scissor Kicks</h2></div> <div class="floatright"><input type="checkbox" name="Side_Scissor_Kicks_chk" id="Side_Scissor_Kicks_chk">
+				<label for="Side_Scissor_Kicks_chk"></label></div> </a></li><li><a href="#"><div class="floatleft">		<img src="images/thumb-3.jpg">
+				<h2>High-Low Plank</h2></div> <div class="floatright">	<input type="checkbox" name="High_Low_Plank_chk" id="High_Low_Plank_chk"><label for="High_Low_Plank_chk"></label></div> </a>
+				</li>
+                <li><a href="#"><div class="floatleft"><img src="images/video3/Bow Extension.jpg">	<h2>Bow Extension </h2></div> <div class="floatright">
+				<input type="checkbox" name="Bow_Extension_chk" id="Bow_Extension_chk"><label for="Bow_Extension_chk"></label></div> </a>
+				</li>	
+                <li>	<a href="#"><div class="floatleft">	<img src="images/video3/Reverse Plank.jpg">	<h2>Reverse Plank</h2></div> <div class="floatright">
+				<input type="checkbox" name="Reverse_Plank_chk" id="Reverse_Plank_chk">	<label for="Reverse_Plank_chk"></label></div> </a>	</li>
+				<li><a href="#"><div class="floatleft">	<img src="images/video3/Single leg internal external rotation.jpg"><h2>Single Leg Internal/External Rotation</h2></div> <div class="floatright">
+				<input type="checkbox" name="Single_Leg_Internal_External_Rotation_chk" id="Single_Leg_Internal_External_Rotation_chk">
+				<label for="Single_Leg_Internal_External_Rotation_chk"></label></div> </a>
+				</li>
+            </ul>
+        </div>
+    </div>
+    
+   <!--- Custom Workout List PAge End -->
+
+
+
+<!--Help Page start  -->
+<div data-role="page" id="disclaimer" class="disclaimer">
+ <div data-theme=""  style="background-color:#0d497a" class="border headerbar">
+                <div>
+                <a href="#workout_routine" class="home"></a>
+                </div>	
+                <div class="heading-bar"><b>Abs Workout</b></div>
+                <div>
+                <a href="#setting" class="option"></a>
+                </div>
+   			</div>  <!-- /header---->
+<div data-role="content" class="contentbg">
+      <h3><b>*Disclaimer</b></h3>
+<h3> <b>Consult a physician before beginning any exercise program.</b></h3>
+<h3><b>How to Use this Program</b></h3>
+<p>
+For someone new to exercise, you can do this program at home without any equipment. Simply follow the recommended workout and you'll begin to see results and feel better in only a few weeks. This program will help flatten your tummy while concurrently developing strength and definition in the hips and thighs.
+</p>
+<p>
+For people who are already exercising on a regular basis, this program can be used as a supplement when you don't have time to make it to the gym and need a quick routine you can do from home or on the road while traveling. Another option is to use this program as a dynamic warm-up to prepare the core for the challenges of your regular exercise routine. 
+</p>
+
+<h3><b>Frequency:</b></h3>
+<p>
+This program could be done two-to-three times per week, with at least one full day of rest between workouts.
+</p>
+
+<h3><b>Intensity:</b></h3>
+<p>
+When starting the program complete each exercise for 1-3 sets resting between each set before moving to the next exercise. To burn more calories; turn the routine into a circuit and complete one exercise right after the other and rest for 2-3 minutes after the completion of one circuit (all exercises).
+</p>
+
+<h2><b>Workout #1</b></h2>
+<h3><b>Hip Bridge</b></h3>
+<p><b>Target Body Part: </b> Abs, Butt/Hips</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your back with knees bent and feet flat on the floor, arms by your sides.</li>
+<li>Lift your hips off the floor until your back forms a straight line from knees to shoulders.</li>
+<li>Hold this peak position for a 2 second contraction, really squeezing your hamstrings and glutes.</li>
+<li>lower your hips back to the starting position and repeat.</li>
+</ul>
+
+<h3><b> Childs Pose </b></h3>
+<p><b>Target Body Part: </b> Abs, Back, Butt/Hips, Legs – Thighs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Come to a hands and knees position on the mat with your toes pointing behind you, big toes touching.</li>
+<li>Widen your knees towards the outside of the mat as you sit back toward your heels.</li>
+<li>As you sit back, try to bring your hips all the way to your heels or as far back as possible. Stretch out through your back and arms.</li>
+<li>Pull the shoulders down and back. Keep them away from your ears. Allow your chest to rest between your thighs and your forehead to rest on the floor. </li>
+<li>Inhale as you lengthen the spine, extending through the upper body, and exhale as you fold deeper into the pose, widening the knees as needed.</li>
+<li>Hold this position for 5-10 slow, deep breaths (approximately 30 seconds to a minute).</li>
+<li>Exercise variation: Rest your arms alongside the body (toward your hips) with the palms facing upward and the fronts of your shoulders toward the floor.</li>
+</ul>
+
+<h3><b>Sit-Ups</b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie flat on your back on the floor with your knees bent at 90 degrees and feet flat on the floor. Place your hands behind your head and lock them together by clasping your fingers.</li>
+<li>Raise your upper body so that it creates an imaginary V-shape with your thighs.</li>
+<li>Once you feel the contraction for a second, lower your upper body back down to the starting position.</li>
+</ul>
+
+<h3><b>Side Bends</b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Begin with feet slightly wider than shoulder-width apart</li>
+<li>Slowly bend to the right as far as you can </li>
+<li>Pause, then slowly return to an upright position. </li>
+<li>Repeat, bending to the left side.</li>
+</ul>
+
+<h3><b>Reverse Marches</b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your back on a mat in a bent-knee position with feet placed firmly on the floor, arms outstretched to your sides in a "T" position; palms facing upward.</li>
+<li>Slowly lift one foot off the floor while keeping your knee bent at 90-degrees. </li>
+<li>Hold this position for 3-5 seconds </li>
+<li>Return to the starting position and repeat with your alternate leg</li>
+</ul>
+
+<h3><b>T-Kicks</b></h3>
+<p><b>Target Body Part: </b>Lower Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Stand straight up and hold your arms straight out to your side as if you are in a "T"</li>
+<li>Then using your abdominal muscles kick your right leg out in front of you.</li>
+<li>Your foot will come right about to the level of your hips/belly button or higher.</li>
+<li> Repeat for desired reps.</li>
+</ul>
+
+<h3><b>Modified Plank </b></h3>
+<p><b>Target Body Part: </b>Abs,Back</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your stomach and raise yourself up so you're resting on your forearms and knees.</li>
+<li>Your elbows should be under your shoulders.</li>
+<li>Pull your abs tight for three deep breaths, then slowly return to the starting position.</li>
+</ul>
+
+<h3><b>Cobra</b></h3>
+<p><b>Target Body Part: </b>Abs,Back</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie face down on the floor with your palms near your chest.</li>
+<li>Lift your head, shoulders, and chest off the floor, pulling your shoulder blades down and together. </li>
+<li>Hold for 2 counts and then lower back down. Repeat 8 to 10 times. </li>
+<li>For a more difficult exercise, try lifting your thighs and hips off the floor. </li>
+</ul>
+
+<h3><b>Single Leg Balance</b></h3>
+<p><b>Target Body Part: </b>Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<p>Starting Position:Stand with both feet together and parallel with each other. Pull your shoulder blades down your back and engage your abdominal muscles to stabilize the spine. Bend your knees slightly and keep tension in your inner and outer thigh muscles. This will help control the tendency to shift sideways during the single-leg stand.</p>
+<ul>
+<li>Movement: Slowly lift one leg 3-6" off the floor; find your balance on the standing leg. Avoid any sideways tilting or swaying in your upper body and try not to move the standing foot. Hold for 10-15 seconds before returning the foot to the floor. Perform an equal number of repetitions with each foot. </li>
+</ul>
+
+<h3><b>Angel Wipers</b></h3>
+<p><b>Target Body Part: </b>Abs,Chest,Shoulders</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your back on an exercise mat or firm surface, bending your knees until your feet are positioned flat on the floor. Allow your arms to rest by your sides. Palms may face either up or down.</li>
+<li>Bring your arms away from your sides to about 45-degrees, palms rotated toward the ceiling. Your upper arms should stay in contact with the mat.</li>
+<li>Gently slide your arms along the mat to an overhead position to a point where your hands can touch and your elbows have a comfortable bend.</li>
+<li>Gently bring your arms back to your starting position, using the same movement pattern.</li>
+</ul>
+
+<h2><b>Workout #2</b></h2>
+<h3><b>Opposite Arm and Leg Raise</b></h3>
+<p><b>Target Body Part: </b>Abs, Back, Butt/Hips</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Begin on all fours, aligning your knees under your hips and your wrists under your shoulders.</li>
+<li>Raise your left arm to shoulder height and your left leg to hip height.</li>
+<li>Hold for 2 seconds, reaching forward with your fingers and back with your heels.</li>
+<li>Repeat this exercise on the opposite side.</li>
+</ul>
+
+<h3><b> Flutter Kicks </b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on the floor and stabilize your body by placing your hands under your rear and pressing your palms firmly against the ground. Extend your legs out.</li>
+<li>With your legs in a fixed slightly bent position throughout the movement. Keep one leg stationary while raising the other leg up until they are about 75 degrees above the level of the floor.</li>
+<li>Reverse the movement and return to the starting point.</li>
+<li>Repeat with other leg.</li>
+</ul>
+
+<h3><b>2-Leg Ab Isolation</b></h3>
+<p><b>Target Body Part: </b>Lower Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your back with both legs extended. Place your hands flat on the ground with palms down, wedging them under your butt slightly. </li>
+<li>Lift both feet about a foot off the ground and hold them in place for 30 seconds.</li>
+<li>Return to the starting position and repeat.</li>
+</ul>
+
+<h3><b>Side Plank with Straight Leg</b></h3>
+<p><b>Target Body Part: </b>Obliques, TransversusAbdominus</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on your right side on a mat with your legs straight and the left leg stacked directly on top of the right. </li>
+<li>Bend your right elbow and place it directly under your shoulder.</li>
+<li>Align your head with your spine and keep your hips and left knee in contact with the
+exercise mat.
+</li>
+<li>Upward Phase:  Exhale; brace your spine by engaging your abs. Lift your hips and knees off the mat. Your body should form a straight line from your ankles to your shoulders.</li>
+<li>Lie on your left side on a mat with your legs straight and the right leg stacked directly on top of the left. </li>
+<li>Bend your left elbow and place it directly under your shoulder.</li>
+<li>Lowering Phase: Inhale and return to your starting position. </li>
+<li>After the recommended amount of repetitions, repeat on the other side. </li>
+</ul>
+
+<h3><b>Squat Thrust with Twist</b></h3>
+<p><b>Target Body Part: </b> Obliques, Legs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Stand with your feet shoulder-width apart and extend your arms in front of you at shoulder height.</li>
+<li>Begin by squatting down, bending your knees 90 degrees, and twisting your upper body to the left.</li>
+<li>Now come up and repeat the exercise to the right.</li>
+<li>Keep your weight in your heels and don't allow your knees to jut forward away from your toes.</li>
+<li>Keep your knees facing forward as your chest and shoulders move side to side.</li>
+<li>For the best results, bend your knees as close to 90 degrees as possible.</li>
+</ul>
+
+
+<h3><b>Standing Knee Raises</b></h3>
+<p><b>Target Body Part: </b>Abs, Butt/Hips, Legs - Thighs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Keeping your chest up at all duration, stand with both feet about hip width.</li>
+<li>Lift one knee up as high as you can for 3 seconds without bending your torso or leaning any direction.</li>
+<li>Maintain your balance.</li>
+<li>Return the leg to the ground.</li>
+</ul>
+
+<h3><b> Standing Core Rotation </b></h3>
+<p><b>Target Body Part: </b>Abs</p>
+<p><b>Equipment Needed: </b> Dumbbell (Or by pick up any object you can grip easily, like a phone book, bottle of water or a closed laptop computer.)</p>
+<ul>
+<li>Standing with your feet hip-width apart, use both hands to hold a dumbbell straight out in front of your chest, core engaged.</li>
+<li>Moving your torso slightly, slowly rotate your arms to the left as far as you can. </li>
+<li>Pause, then rotate to the right. That's one rep.</li>
+</ul>
+
+<h3><b>Prone Plank</b></h3>
+<p><b>Target Body Part: </b>Abs,Back</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Get into a full pushup position with your palms on the floor beneath your shoulders.</li>
+<li>Hold for the recommended amount of duration, with your abs contracted and your arms and legs extended </li>
+</ul>
+
+<h3><b>Dumbbell Side Bends</b></h3>
+<p><b>Target Body Part: </b>Abs</p>
+<p><b>Equipment Needed: </b>Dumbbells(You can substitute dumbbells with jugs of milk or water; grocery bags filled with items or a back pack filled with something heavy- books, cans of food, just about anything.)</p>
+<ul>
+<li>Hold a pair of dumbbells at your sides, arms straight and core engaged:</li>
+<li>Slowly bend to the right as far as you can, lowering the weight toward your right knee. </li>
+<li>Pause, then slowly return to an upright position. </li>
+<li>Repeat, bending to the left side.</li>
+</ul>
+
+<h3><b>Single Leg Side Balance Reach</b></h3>
+<p><b>Target Body Part: </b>Abs, Legs - Thighs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Stand with feet hip-width apart, knees slightly bent, abs engaged, hands on hips</li>
+<li>Balance on one leg and lift the other directly beside it</li>
+<li>Extend and point the lifted leg and toe to the side, keeping your hips facing forward</li>
+<li>Return the lifted leg to the starting position and repeat</li>
+</ul>
+
+<h2><b>Workout #3</b></h2>
+<h3><b>Spiderman Planks</b></h3>
+<p><b>Target Body Part: </b>Abs, Butt/Hips, Legs - Thighs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Begin in a low plank position.</li>
+<li>Alternate bringing each knee to the outside of your elbow on the same side.</li>
+<li>Return to the starting position and repeat.</li>
+</ul>
+
+<h3><b> Reverse Crunches </b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie on the floor and place hands on the floor or behind the head.</li>
+<li>Bring the knees in towards the chest until they're bent to 90 degrees, with feet together.</li>
+<li>Contract the abs to curl the hips off the floor, reaching the legs up towards the ceiling.</li>
+<li>Lower and repeat for recommended amount of reps.</li>
+</ul>
+
+<h3><b>Cross Leg Sit-Ups</b></h3>
+<p><b>Target Body Part: </b>Abs, Obliques</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Assume start position by laying on back and crossing your right ankle over your left knee.</li>
+<li>Support head with your left hand while your right hand is palm down on your right side</li>
+<li>Bring your left elbow to your right knee.</li>
+<li>Repeat for desired reps</li>
+</ul>
+
+<h3><b>Leg Climbers</b></h3>
+<p><b>Target Body Part: </b>Abs, Butt/Hips</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie flat on your back with your right leg resting on the ground and your left leg up in the air, perpendicular to the floor.</li>
+<li>Roll your torso up towards your left leg.</li>
+<li>With your left hand, reach for your left hip. Grab your left knee with your right hand. Let go of your hip and reach for your toe with your left hand. It should look like you are climbing up your leg like a pole.
+</li>
+<li>Lower yourself back down, keeping space between your chest and chin.</li>
+<li>Repeat for desired reps</li>
+</ul>
+
+<h3><b>Bicycle Crunches</b></h3>
+<p><b>Target Body Part: </b> Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Lie flat on the floor with your lower back pressed to the ground and contract your core muscles.</li>
+<li>With your hands gently holding your head, lift your knees to about a 45-degree angle.</li>
+<li>Slowly, go through a bicycle pedal motion kicking forward with the right leg and bringing in the knee of the left leg.</li>
+<li>Alternately touching your elbows to the opposite knees as you twist back and forth.</li>
+<li>Continue alternating until all recommended amount of repetitions have been completed.</li>
+</ul>
+
+<h3><b>Side Scissor Kicks</b></h3>
+<p><b>Target Body Part: </b>Abs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<p>Starting Position: Lie on your back with your legs extended. Place your hands flat on the ground with palms down, wedging them under your butt slightly. </p>
+<ul>
+<li>Raise your feet about a foot off the ground. </li>
+<li>Kick your feet back and forth from side-to-side..</li>
+</ul>
+
+<h3><b> High-Low Plank</b></h3>
+<p><b>Target Body Part: </b>Abs, Arms, Chest, Shoulders</p>
+<p><b>Equipment Needed: </b> No Equipment Needed</p>
+<ul>
+<li>Begin in a high plank position on your hands, lower down to your elbows one at a time, then raise back up to your hands. </li>
+<li>Start out on the right side first, then on the left side.</li>
+<li>Repeat for desired reps.</li>
+</ul>
+
+<h3><b>Bow Extension</b></h3>
+<p><b>Target Body Part: </b>Abs</p>
+<p><b>Equipment Needed: </b>Dumbbell (Or pick up any object you can grip easily, like a phone book, bottle of water or a closed laptop computer.)</p>
+<ul>
+<li>Hold a dumbbell in both hands above your right shoulder and point your left foot out to the side.</li>
+<li>In one motion, draw your elbows down to lower the weight as you bend your left knee toward your chest. </li>
+<li>Reverse the movement to return to start. That's one rep. </li>
+<li>Perform the suggested number of reps, then switch sides and repeat.</li>
+</ul>
+
+<h3><b>Reverse Plank</b></h3>
+<p><b>Target Body Part: </b>Abs, Back, Triceps, Shoulders</p>
+<p><b>Equipment Needed: </b>No Equipment</p>
+<ul>
+<li>Sit down with legs positioned pointing directly out in front of you.</li>
+<li>Place your arms behind you with hands palm down on the floor. Straighten your arms and turn your hands inward so that your fingertips point towards your back. Keep your hands flat. </li>
+<li>Inhale and press up using your arms and lift your hips up towards the ceiling. Do not allow your torso, the core of your body, to sag but instead maintain a straight line from your shoulders to the heels of your feet.</li>
+<li>Exhale once you have lifted your core. Maintain a slow breathing technique.</li>
+<li>Drop your head so that it hangs backwards while the rest of you is taut and straight.</li>
+<li>Tighten and release your thigh and buttock muscles.</li>
+<li>Hold this formation for about either 30 seconds or a minute. Perform this exercise anywhere from 3 minutes to as long as you'd like.</li>
+</ul>
+
+<h3><b>Single Leg Internal/External Rotation</b></h3>
+<p><b>Target Body Part: </b>Abs,Butt/Hips,Legs - Thighs</p>
+<p><b>Equipment Needed: </b> No Equipment</p>
+<ul>
+<li>Stand with your feet pointed straight ahead and hip-width apart.</li>
+<li>Balance on your left leg and lift your right knee to your waist.</li>
+<li>Maintaining this leg position, bring your right leg across your body so your right knee crosses your left leg.</li>
+<li>Continuing the sequence, bring your right leg back across the body.</li>
+<li>Allow your right hip to open bringing your right knee toward the right side of the room.</li>
+<li>Hold each point for a few seconds then return to the starting position.</li>
+<li>Repeat for the recommended amount.</li>
+</ul>
+
+      
+      
+   </div> <!--content end -->
+  
+  
+</div> 
+
+ <!-- Help PAge End -->
+<!--- Setting PAge Start -->
+<div data-role="page" id="setting" class="setting">
+<div data-theme="" style="background-color:#0d497a" class="border headerbar">
+<div>
+<a href="#disclaimer" class="help"></a>
+</div>
+<div class="heading-bar"><b>Settings</b></div>
+<div>
+<a href="#workout_routine" class="homeright"></a>
+</div>
+</div> <!-- /header---->
+<div data-role="content">
+<div class="sound">
+<div data-role="fieldcontain">
+<label for="sound">Sound:</label>
+<select name="sound" id="sound" data-role="slider" onchange="setsound();">
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</select>
+</div>
+</div>
+<div class="instructions">
+<div data-role="fieldcontain">
+<label for="instructions">Text Instructions:</label>
+<select name="instructions" id="instructions" data-role="slider" onchange="onoffinstruction();">
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</select>
+</div>
+</div>
+<div class="reminders">
+<div data-role="fieldcontain">
+<label for="reminders">Reminders:</label>
+<select name="reminders" id="reminders" data-role="slider" onchange="showhide();">
+<option value="no">No</option>
+<option value="yes">Yes</option>
+</select>
+</div>
+</div>
+<div class="remindersetting">
+
+<fieldset data-role="controlgroup" data-type="horizontal" >
+<legend>Select days and time for notification lowered</legend>
+<input class="weekday" name="7" id="7" type="checkbox">
+<label for="7">Sun</label>
+<input class="weekday" name="1" id="1" type="checkbox">
+<label for="1">Mon</label>
+<input class="weekday" name="2" id="2" type="checkbox">
+<label for="2">Tue</label>
+<input class="weekday" name="3" id="3" type="checkbox">
+<label for="3">Wed</label>
+<input class="weekday" name="4" id="4" type="checkbox">
+<label for="4">Thu</label>
+<input class="weekday" name="5" id="5" type="checkbox">
+<label for="5">Fri</label>
+<input class="weekday" name="6" id="6" type="checkbox">
+<label for="6">Sat</label>
+</fieldset>
+<input type="time" name="time" id="time"  placeholder="Select time" >
+
+<div class="repeat">
+<div data-role="fieldcontain">
+<label for="repeat">Repeat:</label>
+<select name="repeat" id="repeat" data-role="slider" >
+<option value="false">No</option>
+<option value="true">Yes</option>
+</select>
+</div>
+</div>
+	<div class="notification_reminder exsersize">
+      <a class="firenotification" data-role="button" data-theme="b" onclick="firenotification();">Save</a>
+    </div>
+</div> <!-- Remind Setting Div -->
+</div><!--Content End-->
+</div> <!--Page End-->
+<!-- Setting Page End -->
+
+<div class="loading">
+	<div class="img"><img src="images/restimage.png" width="100%" /></div>
+    <div><span>REST TIME :</span><span class="resttimespan"></span></div>
+    <div class="homebutton"><a href="#workout_routine">Home</a></div>
+</div>
+<div class="customplay"></div>
+
+
+</body>
+</html>
